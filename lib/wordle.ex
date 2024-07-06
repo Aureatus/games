@@ -1,22 +1,38 @@
 defmodule Games.Wordle do
+  @moduledoc """
+  This module exposes a function to play wordle - you get 6 guesses for each word.
+  """
+
   defp update_state(state, letter, update, count) do
     if Map.get(state, :counter) |> Map.get(letter, 0) >= count do
-      Map.update!(state, :response, fn x -> [:grey | x] end)
+      Map.update!(state, :response, &[:grey | &1])
     else
-      Map.update!(state, :counter, fn x -> Map.update(x, letter, 1, fn y -> y + 1 end) end)
+      Map.update!(state, :counter, fn x -> Map.update(x, letter, 1, &(&1 + 1)) end)
       |> Map.update!(:response, fn x -> [update | x] end)
     end
   end
 
+  @type(color :: :grey, :yellow, :green)
+
+  @spec win?([color()]) :: boolean()
   defp win?(state) do
     Enum.all?(state, fn x -> x == :green end)
   end
 
+  @spec generate_answer :: [String.t()]
   defp generate_answer do
     Enum.random(["toast", "tarts", "hello", "beats"])
   end
 
-  @type(color :: :grey, :yellow, :green)
+  @doc """
+  Given an answer and a guess, returns a list of atoms based on correctness.
+
+    ## Examples
+
+      iex> Games.Wordle.feedback("toast", "tasty")
+      [:green, :yellow, :yellow, :yellow, :grey]
+
+  """
   @spec feedback(String.t(), String.t()) :: [color()]
   def feedback(answer, guess) do
     guess_list = String.split(guess, "", trim: true)
@@ -45,8 +61,6 @@ defmodule Games.Wordle do
   def play, do: play(6, generate_answer())
 
   def play(attempt, generated_answer) do
-    IO.inspect(generated_answer)
-
     if attempt <= 0 do
       "You lose!"
     else

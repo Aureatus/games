@@ -1,6 +1,7 @@
 defmodule Games.WordleTest do
   use ExUnit.Case
-  import ExUnit.CaptureIO
+
+  doctest Games.Wordle
 
   test "feedback" do
     assert Games.Wordle.feedback("aaaaa", "aaaaa") == [:green, :green, :green, :green, :green]

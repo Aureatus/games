@@ -1,4 +1,7 @@
 defmodule Games.RockPaperScissors do
+  @moduledoc """
+  Module to play the classic game rock, paper, scissors
+  """
   def play do
     player_choice =
       IO.gets("Choose rock, paper, or scissors:") |> String.trim() |> String.downcase()

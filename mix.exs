@@ -21,7 +21,7 @@ defmodule Games.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:dialyxir, "~> 1.4"},
+      {:dialyxir, "~> 1.4", runtime: false},
       {:ex_doc, "~> 0.31", only: :dev, runtime: false},
       {:credo, "~> 1.7"}
       # {:dep_from_hexpm, "~> 0.3.0"},
