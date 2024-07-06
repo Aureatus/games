@@ -16,6 +16,8 @@ defmodule Games.Wordle do
     Enum.random(["toast", "tarts", "hello", "beats"])
   end
 
+  @type(color :: :grey, :yellow, :green)
+  @spec feedback(String.t(), String.t()) :: [color()]
   def feedback(answer, guess) do
     guess_list = String.split(guess, "", trim: true)
     answer_list = String.split(answer, "", trim: true)
