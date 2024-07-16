@@ -22,6 +22,11 @@ defmodule Games.GuessingGame do
     guess = IO.gets("Guess a number between 1 and 10:") |> String.replace("\n", "")
     win = guess == answer
 
-    if win, do: IO.puts("You win!"), else: handle_attempt(attempts, answer, guess)
+    if win do
+      Games.ScoreTracker.add_points(5)
+      IO.puts("You win!")
+    else
+      handle_attempt(attempts, answer, guess)
+    end
   end
 end

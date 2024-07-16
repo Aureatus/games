@@ -8,6 +8,7 @@ defmodule Games do
       3. Wordle
 
       Enter "stop" to exit.
+      Enter "score" to view your current score
       """)
       |> String.trim()
 
@@ -17,12 +18,14 @@ defmodule Games do
         String.contains?(input, ["Rock", "Paper", "Scissors", "2"]) -> :rock_paper_scissors
         String.contains?(input, ["Wordle", "3"]) -> :wordle
         input == "stop" -> :stop
+        input == "score" -> :score
       end
 
     case choice do
       :guessing_game -> Games.GuessingGame.play()
       :rock_paper_scissors -> Games.RockPaperScissors.play()
       :wordle -> Games.Wordle.play()
+      :score -> Games.ScoreTracker.current_score() |> IO.puts()
       :stop -> :stop
     end
 

@@ -11,6 +11,7 @@ defmodule Games.RockPaperScissors do
     win_conditions = [{"scissors", "paper"}, {"rock", "scissors"}, {"paper", "rock"}]
 
     if Enum.member?(win_conditions, {player_choice, ai_choice}) do
+      Games.ScoreTracker.add_points(10)
       IO.puts("You win! #{player_choice} beats #{ai_choice}.")
     else
       if player_choice == ai_choice,
